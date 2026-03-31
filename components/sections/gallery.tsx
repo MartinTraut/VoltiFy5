@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, ArrowRight, Expand } from "lucide-react"
+import { X, ArrowRight, ArrowLeft, Expand } from "lucide-react"
 
 function Counter({ end, suffix = "" }: { end: number; suffix?: string }) {
   const [count, setCount] = useState(0)
@@ -67,21 +67,84 @@ const projects = [
     desc: "Energieeffiziente LED-Beleuchtung mit Tageslichtsensorik.",
     category: "Beleuchtung",
   },
+  {
+    src: "https://voltify5.de/wp-content/uploads/go-x/u/5c35d522-7369-4ecc-acb4-ec24b7ad543b/image.jpg",
+    title: "Unterverteilung & Zählerschrank",
+    desc: "Fachgerechter Aufbau und Verdrahtung nach aktueller VDE-Norm.",
+    category: "Installation",
+  },
+  {
+    src: "https://voltify5.de/wp-content/uploads/go-x/u/4d9247e5-b0f7-45a0-a42b-359a1663970e/image.jpg",
+    title: "Sanierung Altbau",
+    desc: "Kompletterneuerung der Elektroinstallation im denkmalgeschützten Gebäude.",
+    category: "Sanierung",
+  },
+  {
+    src: "https://voltify5.de/wp-content/uploads/go-x/u/411013b7-74c9-451b-bf82-7462b83aebfb/image.jpg",
+    title: "Smart Home Vernetzung",
+    desc: "Intelligente Gebäudesteuerung mit KNX für Einfamilienhaus.",
+    category: "Smart Home",
+  },
+  {
+    src: "https://voltify5.de/wp-content/uploads/go-x/u/62c8009b-e981-45d6-86b9-0d3b11aa3b46/image.jpg",
+    title: "Außenbeleuchtung Gewerbe",
+    desc: "LED-Konzept für Firmenaußengelände mit Bewegungssensorik.",
+    category: "Beleuchtung",
+  },
+  {
+    src: "https://voltify5.de/wp-content/uploads/go-x/u/91078ebb-92c0-4fc2-8b80-fbdcc4448aac/image.jpg",
+    title: "Elektroprüfung Betrieb",
+    desc: "Regelmäßige E-Check Prüfung für Gewerbebetrieb nach DGUV V3.",
+    category: "E-Check",
+  },
+  {
+    src: "https://voltify5.de/wp-content/uploads/go-x/u/7555d6c2-fb31-4ea3-ac4f-8b024339f261/image.jpg",
+    title: "Starkstromversorgung",
+    desc: "Installation einer Starkstromanlage für industrielle Fertigung.",
+    category: "Gewerbe",
+  },
+  {
+    src: "https://voltify5.de/wp-content/uploads/go-x/u/bb194df9-2eb6-469f-8da7-41947725469e/image.jpg",
+    title: "Solaranlage Gewerbedach",
+    desc: "30kWp Photovoltaikanlage auf Produktionshalle mit Speicher.",
+    category: "Solar",
+  },
 ]
+
+// 2 Projekte pro Seite auf Desktop, 1 auf Mobile
+const DESKTOP_PER_PAGE = 2
+const MOBILE_PER_PAGE = 1
 
 export function Gallery() {
   const [selected, setSelected] = useState<number | null>(null)
+  const [page, setPage] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640)
+    check()
+    window.addEventListener("resize", check)
+    return () => window.removeEventListener("resize", check)
+  }, [])
+
+  const perPage = isMobile ? MOBILE_PER_PAGE : DESKTOP_PER_PAGE
+  const totalPages = Math.ceil(projects.length / perPage)
+
+  const prev = useCallback(() => setPage((p) => (p - 1 + totalPages) % totalPages), [totalPages])
+  const next = useCallback(() => setPage((p) => (p + 1) % totalPages), [totalPages])
+
+  const visible = projects.slice(page * perPage, page * perPage + perPage)
 
   return (
     <section id="projekte" className="flex flex-col justify-center py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 w-full">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 w-full">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="max-w-2xl mb-14"
+          className="max-w-2xl mb-10"
         >
           <p className="text-sm font-medium text-brand mb-4 uppercase tracking-wider">Referenzprojekte</p>
           <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-[1.1]">
@@ -95,8 +158,8 @@ export function Gallery() {
           </p>
         </motion.div>
 
-        {/* Stats */}
-        <div className="rounded-2xl border border-white/[0.08] bg-navy-light overflow-hidden mb-10">
+        {/* Stats - kompakt */}
+        <div className="rounded-xl border border-white/[0.08] bg-navy-light overflow-hidden mb-8">
           <div className="grid grid-cols-3 divide-x divide-white/[0.06]">
             {[
               { end: 1000, suffix: "+", label: "Projekte", accent: false },
@@ -105,23 +168,22 @@ export function Gallery() {
             ].map((s, i) => (
               <motion.div
                 key={s.label}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.15 + i * 0.1 }}
-                className="relative p-6 sm:py-8 sm:px-8 text-center"
+                className="relative px-3 py-3 sm:px-6 sm:py-4 text-center"
               >
-                {/* Dezenter Glow bei Accent */}
                 {s.accent && (
                   <div className="absolute inset-0 bg-brand/[0.04] pointer-events-none" />
                 )}
                 <div className="relative">
-                  <div className={`text-2xl sm:text-4xl lg:text-5xl font-black font-mono leading-none tracking-tight ${
+                  <div className={`text-xl sm:text-2xl lg:text-3xl font-bold font-mono leading-none tracking-tight ${
                     s.accent ? "text-brand" : "text-white"
                   }`}>
                     <Counter end={s.end} suffix={s.suffix} />
                   </div>
-                  <div className="text-xs text-slate-400 mt-2.5 uppercase tracking-wider font-semibold">
+                  <div className="text-[9px] sm:text-[11px] text-slate-400 mt-1 uppercase tracking-wider font-medium">
                     {s.label}
                   </div>
                 </div>
@@ -130,72 +192,94 @@ export function Gallery() {
           </div>
         </div>
 
-        {/* 2x2 Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {projects.map((p, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="group cursor-pointer flex flex-col rounded-2xl overflow-hidden border border-white/[0.08] transition-[border-color] duration-500 hover:border-brand/40"
-              onClick={() => setSelected(i)}
-            >
-              {/* Bild */}
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <Image
-                  src={p.src}
-                  alt={p.title}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                  className="object-cover will-change-transform transition-transform duration-[1200ms] ease-[cubic-bezier(0.25,0.1,0,1)] group-hover:scale-[1.05]"
-                />
-                {/* Gradient unten für nahtlosen Übergang */}
-                <div className="absolute inset-x-0 -bottom-[1px] h-16 bg-gradient-to-t from-navy-light to-transparent" />
-                {/* Category badge */}
-                <div className="absolute top-3 left-3 z-10">
-                  <span className="text-[10px] font-bold text-brand uppercase tracking-[0.12em] bg-navy/80 backdrop-blur-md rounded-full px-2.5 py-1 border border-brand/30">
-                    {p.category}
-                  </span>
-                </div>
-                {/* Expand icon */}
-                <div className="absolute top-3 right-3 z-10 sm:opacity-0 transition-opacity duration-300 sm:group-hover:opacity-100">
-                  <div className="w-8 h-8 rounded-lg bg-navy/70 backdrop-blur-md flex items-center justify-center border border-white/10">
-                    <Expand className="h-3.5 w-3.5 text-white" />
+        {/* Carousel */}
+        <div className="relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {visible.map((p) => (
+              <motion.div
+                key={p.src}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, ease: [0.25, 0.1, 0, 1] }}
+                className="group cursor-pointer flex flex-col rounded-2xl overflow-hidden border border-white/[0.08] transition-[border-color] duration-500 hover:border-brand/40"
+                onClick={() => setSelected(projects.indexOf(p))}
+              >
+                {/* Bild */}
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={p.src}
+                    alt={p.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover will-change-transform transition-transform duration-[1200ms] ease-[cubic-bezier(0.25,0.1,0,1)] group-hover:scale-[1.05]"
+                  />
+                  <div className="absolute inset-x-0 -bottom-[1px] h-16 bg-gradient-to-t from-navy-light to-transparent" />
+                  <div className="absolute top-3 left-3 z-10">
+                    <span className="text-[10px] font-bold text-brand uppercase tracking-[0.12em] bg-navy/80 backdrop-blur-md rounded-full px-2.5 py-1 border border-brand/30">
+                      {p.category}
+                    </span>
+                  </div>
+                  <div className="absolute top-3 right-3 z-10 sm:opacity-0 transition-opacity duration-300 sm:group-hover:opacity-100">
+                    <div className="w-8 h-8 rounded-lg bg-navy/70 backdrop-blur-md flex items-center justify-center border border-white/10">
+                      <Expand className="h-3.5 w-3.5 text-white" />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Textbereich */}
-              <div className="bg-navy-light p-5 mb-[-1px]">
-                <h3 className="text-base font-bold text-white leading-tight">
-                  {p.title}
-                </h3>
-                <p className="mt-1.5 text-[13px] text-slate-400 leading-relaxed">
-                  {p.desc}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+                {/* Text */}
+                <div className="bg-navy-light p-5">
+                  <h3 className="text-base font-bold text-white leading-tight">{p.title}</h3>
+                  <p className="mt-1.5 text-[13px] text-slate-400 leading-relaxed">{p.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
         </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-10 flex justify-center"
-        >
+        {/* Navigation: Dots + Pfeile + CTA */}
+        <div className="mt-8 flex flex-col items-center gap-5">
+          {/* Dots */}
+          <div className="flex items-center gap-2">
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setPage(i)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i === page ? "w-8 bg-brand" : "w-1.5 bg-white/[0.15] hover:bg-white/[0.3]"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Pfeile */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={prev}
+              className="w-11 h-11 rounded-full border border-white/[0.1] bg-navy-light flex items-center justify-center text-white transition-colors duration-300 hover:border-brand/40 hover:text-brand"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </button>
+            <span className="text-xs text-slate-400 font-mono tabular-nums w-12 text-center">
+              {page + 1} / {totalPages}
+            </span>
+            <button
+              onClick={next}
+              className="w-11 h-11 rounded-full border border-white/[0.1] bg-navy-light flex items-center justify-center text-white transition-colors duration-300 hover:border-brand/40 hover:text-brand"
+            >
+              <ArrowRight className="h-5 w-5" />
+            </button>
+          </div>
+
+          {/* CTA */}
           <a
             href="#kontakt"
-            className="group inline-flex items-center gap-2.5 rounded-full bg-brand px-8 py-4 text-base font-bold text-navy transition-all duration-300 hover:bg-brand-light hover:shadow-lg hover:shadow-brand/40"
+            className="group inline-flex items-center gap-2.5 rounded-full bg-brand px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-navy transition-all duration-300 hover:bg-brand-light hover:shadow-lg hover:shadow-brand/40"
           >
             Projekt besprechen
             <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
-        </motion.div>
+        </div>
       </div>
 
       {/* Lightbox */}
@@ -205,7 +289,7 @@ export function Gallery() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-xl flex items-center justify-center p-6"
+            className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6"
             onClick={() => setSelected(null)}
           >
             <motion.div
@@ -225,18 +309,18 @@ export function Gallery() {
                   className="object-cover"
                 />
               </div>
-              <div className="p-6">
+              <div className="p-5 sm:p-6">
                 <span className="text-xs font-bold text-brand uppercase tracking-wider">
                   {projects[selected].category}
                 </span>
-                <h3 className="text-xl font-bold text-white mt-1">
+                <h3 className="text-lg sm:text-xl font-bold text-white mt-1">
                   {projects[selected].title}
                 </h3>
                 <p className="text-sm text-slate-300 mt-1">{projects[selected].desc}</p>
               </div>
             </motion.div>
             <button
-              className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors"
               onClick={() => setSelected(null)}
             >
               <X className="h-5 w-5" />

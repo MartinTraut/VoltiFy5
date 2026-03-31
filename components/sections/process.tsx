@@ -1,8 +1,7 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
 import { motion } from "framer-motion"
-import { Phone, ClipboardList, HardHat, ThumbsUp, ArrowRight, Check } from "lucide-react"
+import { Phone, ClipboardList, HardHat, ThumbsUp, ArrowRight } from "lucide-react"
 
 const steps = [
   {
@@ -36,34 +35,9 @@ const steps = [
 ]
 
 export function Process() {
-  const [active, setActive] = useState(0)
-  const [visible, setVisible] = useState(false)
-  const [paused, setPaused] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.2 })
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
-  useEffect(() => {
-    if (!visible || paused) return
-    const id = setInterval(() => setActive((p) => (p + 1) % 4), 6000)
-    return () => clearInterval(id)
-  }, [visible, paused])
-
-  const pick = useCallback((i: number) => {
-    setActive(i)
-    setPaused(true)
-    setTimeout(() => setPaused(false), 10000)
-  }, [])
-
   return (
     <section id="prozess" className="flex flex-col justify-center py-16 sm:py-20">
-      <div ref={ref} className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 w-full">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 w-full">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -83,94 +57,51 @@ export function Process() {
           </p>
         </motion.div>
 
-        {/* 4 Karten */}
+        {/* 4 Karten - alle leuchten beim Sichtbar-Werden */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {steps.map((step, i) => {
             const Icon = step.icon
-            const isActive = active === i
-            const isPast = i < active
 
             return (
-              <motion.button
+              <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
-                onClick={() => pick(i)}
-                className="relative w-full text-left flex flex-col rounded-2xl overflow-hidden border border-white/[0.08] hover:border-white/[0.15]"
+                className="group relative w-full text-left flex flex-col rounded-2xl overflow-hidden border border-brand/40 bg-navy-light"
               >
-                {/* Brand-Rahmen für aktive Karte - als Overlay damit kein Layout-Sprung */}
-                <div className={`absolute inset-0 rounded-2xl border-2 pointer-events-none z-10 transition-opacity duration-700 ${
-                  isActive ? "border-brand/60 opacity-100" : "border-transparent opacity-0"
-                }`} />
-
-                {/* Progress-Bar */}
-                <div className="h-1 bg-navy-card">
-                  {isActive && (
-                    <motion.div
-                      className="h-full bg-brand"
-                      initial={{ width: "0%" }}
-                      animate={{ width: "100%" }}
-                      key={`bar-${i}-${active}-${paused}`}
-                      transition={{ duration: paused ? 10 : 6, ease: "linear" }}
-                    />
-                  )}
-                  {isPast && <div className="h-full w-full bg-brand" />}
-                </div>
+                {/* Brand-Leiste oben */}
+                <div className="h-1 bg-brand" />
 
                 {/* Karten-Inhalt */}
-                <div className={`flex-1 flex flex-col p-5 sm:p-6 transition-[background-color] duration-700 ${
-                  isActive ? "bg-navy-light" : "bg-navy-card/50"
-                }`}>
+                <div className="flex-1 flex flex-col p-5 sm:p-6">
                   {/* Kopfzeile */}
                   <div className="flex items-center justify-between mb-5">
-                    <span className={`text-[28px] sm:text-[36px] font-black font-mono leading-none transition-[color] duration-700 ${
-                      isActive ? "text-brand" : isPast ? "text-brand/30" : "text-white/[0.06]"
-                    }`}>
+                    <span className="text-[28px] sm:text-[36px] font-black font-mono leading-none text-brand/30">
                       {step.num}
                     </span>
-                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-[background-color,color] duration-700 ${
-                      isActive
-                        ? "bg-brand text-navy"
-                        : isPast
-                          ? "bg-brand/20 text-brand"
-                          : "bg-white/[0.05] text-slate-500"
-                    }`}>
-                      {isPast ? (
-                        <Check className="h-5 w-5" strokeWidth={2.5} />
-                      ) : (
-                        <Icon className="h-5 w-5" strokeWidth={1.5} />
-                      )}
+                    <div className="w-11 h-11 rounded-xl flex items-center justify-center bg-brand text-navy">
+                      <Icon className="h-5 w-5" strokeWidth={1.5} />
                     </div>
                   </div>
 
                   {/* Titel */}
-                  <h3 className={`text-[17px] font-bold leading-tight transition-[color] duration-700 ${
-                    isActive ? "text-white" : "text-slate-200"
-                  }`}>
+                  <h3 className="text-[17px] font-bold leading-tight text-white">
                     {step.title}
                   </h3>
 
                   {/* Beschreibung */}
-                  <p className={`mt-2.5 text-[13px] leading-relaxed flex-1 transition-[color] duration-700 ${
-                    isActive ? "text-slate-300" : "text-slate-500"
-                  }`}>
+                  <p className="mt-2.5 text-[13px] leading-relaxed flex-1 text-slate-400">
                     {step.desc}
                   </p>
 
                   {/* Detail-Badge */}
-                  <div className={`mt-5 self-start inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-[background-color,color,border-color] duration-700 ${
-                    isActive
-                      ? "bg-brand text-navy border border-transparent"
-                      : isPast
-                        ? "bg-brand/15 text-brand border border-brand/30"
-                        : "bg-white/[0.04] text-slate-500 border border-white/[0.06]"
-                  }`}>
+                  <div className="mt-5 self-start inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider bg-brand text-navy">
                     {step.detail}
                   </div>
                 </div>
-              </motion.button>
+              </motion.div>
             )
           })}
         </div>

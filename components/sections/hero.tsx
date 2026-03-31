@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { LayoutGroup } from "motion/react"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Star } from "lucide-react"
 import { TextRotate } from "@/components/ui/text-rotate"
 
 function Counter({ end, suffix = "" }: { end: number; suffix?: string }) {
@@ -59,18 +59,19 @@ export function Hero() {
       ref={ref}
       className="relative h-[100svh] flex flex-col overflow-hidden"
     >
+      {/* Main content - vertikal zentriert, gleichmäßig verteilt */}
       <motion.div
         style={{ y, opacity }}
-        className="relative flex-1 flex flex-col justify-end pb-8 sm:justify-center sm:pb-0 mx-auto max-w-7xl w-full px-5 sm:px-8 lg:px-12 pt-20"
+        className="relative flex-1 flex flex-col items-center justify-center text-center mx-auto max-w-7xl w-full px-5 sm:px-8 lg:px-12 pt-20 sm:pt-16"
       >
         {/* Headline */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease }}
+          transition={{ duration: 1, ease }}
         >
           <LayoutGroup>
-            <h1 className="text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold tracking-tight text-white sm:leading-[1.08]">
+            <h1 className="text-[2.6rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold tracking-tight text-white sm:leading-[1.08]">
               <motion.span
                 className="block"
                 layout
@@ -87,7 +88,7 @@ export function Hero() {
                     "Chefsache.",
                     "Präzisionssache.",
                   ]}
-                  mainClassName="inline-flex text-brand overflow-hidden py-1 sm:py-3 px-2.5 sm:px-6 border-2 border-brand/60 rounded-lg sm:rounded-2xl"
+                  mainClassName="inline-flex text-brand overflow-hidden py-1 sm:py-3 px-2 sm:px-6 border-2 border-brand/60 rounded-lg sm:rounded-2xl"
                   staggerFrom="last"
                   initial={{ y: "100%" }}
                   animate={{ y: 0 }}
@@ -104,21 +105,21 @@ export function Hero() {
 
         {/* Subtext */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.4, ease }}
-          className="mt-5 sm:mt-10 text-base sm:text-lg text-slate-300 max-w-md leading-relaxed"
+          transition={{ duration: 0.8, delay: 0.4, ease }}
+          className="mt-5 sm:mt-8 text-[15px] sm:text-lg text-slate-300 max-w-md leading-relaxed"
         >
           5 Elektrotechnikermeister. Über 50 Jahre Erfahrung.
           Ihre Vision, unsere Umsetzung.
         </motion.p>
 
-        {/* CTAs */}
+        {/* CTAs - zentriert */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.55, ease }}
-          className="mt-5 sm:mt-8 flex flex-row gap-3"
+          transition={{ duration: 0.8, delay: 0.55, ease }}
+          className="mt-5 sm:mt-8 flex flex-row gap-3 justify-center"
         >
           <a
             href="#kontakt"
@@ -136,34 +137,23 @@ export function Hero() {
           </a>
         </motion.div>
 
-        {/* Trust badge */}
+        {/* Trust badge - cleaner */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.9, delay: 0.7, ease }}
-          className="mt-5 sm:mt-6"
+          transition={{ duration: 0.8, delay: 0.7, ease }}
+          className="mt-5 sm:mt-8"
         >
-          <div className="inline-flex items-center gap-2 sm:gap-0 sm:rounded-full sm:border sm:border-brand/40 sm:bg-brand/15 sm:px-4 sm:py-2">
-            <div className="flex -space-x-1.5">
-              {["bg-brand", "bg-brand", "bg-brand-dark", "bg-brand-dark"].map((bg, i) => (
-                <div
-                  key={i}
-                  className={`h-6 w-6 sm:h-7 sm:w-7 rounded-full ${bg} border-2 border-navy flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-white`}
-                >
-                  {["TB", "SM", "MW", "FS"][i]}
-                </div>
+          <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2">
+            <div className="flex gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-3.5 w-3.5 sm:h-4 sm:w-4 fill-brand text-brand" />
               ))}
             </div>
-            <div className="pl-1 sm:pl-3 flex items-center gap-1.5">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="h-3 w-3 fill-brand text-brand" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                ))}
-              </div>
-              <p className="text-[11px] sm:text-xs text-slate-300">
-                <strong className="font-semibold text-brand">100+</strong> Kunden
-              </p>
-            </div>
+            <div className="h-4 w-px bg-white/10" />
+            <p className="text-xs sm:text-sm text-white font-medium">
+              <strong className="text-brand">100+</strong> zufriedene Kunden
+            </p>
           </div>
         </motion.div>
       </motion.div>
@@ -181,12 +171,12 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: s.delay, ease }}
-              className={`${i === 1 ? "text-center" : i === 2 ? "text-right" : "text-left"}`}
+              className="text-center"
             >
               <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white font-mono tabular-nums tracking-tight">
                 <Counter end={s.v} suffix={s.s} />
               </div>
-              <div className="text-[10px] sm:text-xs text-slate-400 mt-0.5 uppercase tracking-wider">
+              <div className="text-[10px] sm:text-xs text-slate-400 mt-1 uppercase tracking-wider">
                 {s.l}
               </div>
             </motion.div>
