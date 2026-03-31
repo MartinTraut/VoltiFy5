@@ -114,7 +114,7 @@ const col3 = testimonials.slice(6, 9)
 
 export function Testimonials() {
   return (
-    <section id="referenzen" className="min-h-dvh flex flex-col justify-center py-16 sm:py-20">
+    <section id="referenzen" className="flex flex-col justify-center py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 w-full">
         {/* Header */}
         <motion.div
@@ -146,18 +146,18 @@ export function Testimonials() {
         >
           <div className="grid grid-cols-2 sm:grid-cols-4">
             {/* Google Bewertung - Highlight */}
-            <div className="relative p-6 sm:p-8 bg-brand">
-              <div className="flex items-center gap-3">
-                <div className="text-4xl sm:text-5xl font-black text-navy font-mono leading-none tracking-tight">
+            <div className="relative p-4 sm:p-8 bg-brand">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="text-3xl sm:text-5xl font-black text-navy font-mono leading-none tracking-tight">
                   5.0
                 </div>
                 <div className="flex gap-0.5">
                   {Array.from({ length: 5 }).map((_, s) => (
-                    <Star key={s} className="h-4 w-4 fill-navy text-navy" />
+                    <Star key={s} className="h-3 w-3 sm:h-4 sm:w-4 fill-navy text-navy" />
                   ))}
                 </div>
               </div>
-              <div className="text-xs text-navy/60 mt-2 uppercase tracking-wider font-bold">
+              <div className="text-[10px] sm:text-xs text-navy/60 mt-1.5 sm:mt-2 uppercase tracking-wider font-bold">
                 Google Bewertung
               </div>
             </div>
@@ -168,12 +168,12 @@ export function Testimonials() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative p-6 sm:p-8 border-l border-white/[0.06]"
+              className="relative p-4 sm:p-8 border-l border-white/[0.06]"
             >
-              <div className="text-4xl sm:text-5xl font-black text-white font-mono leading-none tracking-tight">
+              <div className="text-3xl sm:text-5xl font-black text-white font-mono leading-none tracking-tight">
                 <Counter end={100} suffix="%" />
               </div>
-              <div className="text-xs text-slate-400 mt-2 uppercase tracking-wider font-semibold">
+              <div className="text-[10px] sm:text-xs text-slate-400 mt-1.5 sm:mt-2 uppercase tracking-wider font-semibold">
                 Weiterempfehlung
               </div>
             </motion.div>
@@ -184,13 +184,13 @@ export function Testimonials() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="relative p-6 sm:p-8 border-l border-white/[0.06]"
+              className="relative p-4 sm:p-8 border-l border-white/[0.06]"
             >
-              <div className="text-4xl sm:text-5xl font-black text-white font-mono leading-none tracking-tight">
+              <div className="text-3xl sm:text-5xl font-black text-white font-mono leading-none tracking-tight">
                 <Counter end={100} suffix="+" />
               </div>
-              <div className="text-xs text-slate-400 mt-2 uppercase tracking-wider font-semibold">
-                Zufriedene Kunden
+              <div className="text-[10px] sm:text-xs text-slate-400 mt-1.5 sm:mt-2 uppercase tracking-wider font-semibold">
+                Kunden
               </div>
             </motion.div>
 
@@ -200,12 +200,12 @@ export function Testimonials() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="relative p-6 sm:p-8 border-l border-white/[0.06]"
+              className="relative p-4 sm:p-8 border-l border-white/[0.06]"
             >
-              <div className="text-4xl sm:text-5xl font-black text-white font-mono leading-none tracking-tight">
+              <div className="text-3xl sm:text-5xl font-black text-white font-mono leading-none tracking-tight">
                 <Counter end={1000} suffix="+" />
               </div>
-              <div className="text-xs text-slate-400 mt-2 uppercase tracking-wider font-semibold">
+              <div className="text-[10px] sm:text-xs text-slate-400 mt-1.5 sm:mt-2 uppercase tracking-wider font-semibold">
                 Projekte
               </div>
             </motion.div>
@@ -214,7 +214,7 @@ export function Testimonials() {
 
         {/* Scrolling columns */}
         <div
-          className="flex justify-center gap-4 max-h-[520px] overflow-hidden"
+          className="flex justify-center gap-4 max-h-[400px] sm:max-h-[520px] overflow-hidden"
           style={{
             maskImage: "linear-gradient(to bottom, transparent, black 6%, black 94%, transparent)",
             WebkitMaskImage: "linear-gradient(to bottom, transparent, black 6%, black 94%, transparent)",

@@ -15,7 +15,7 @@ const points = [
 
 export function About() {
   return (
-    <section id="ueber-uns" className="min-h-dvh flex flex-col justify-center py-16 sm:py-20 overflow-hidden">
+    <section id="ueber-uns" className="flex flex-col justify-center py-16 sm:py-20 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Photo side */}

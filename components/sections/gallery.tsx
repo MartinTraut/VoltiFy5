@@ -73,7 +73,7 @@ export function Gallery() {
   const [selected, setSelected] = useState<number | null>(null)
 
   return (
-    <section id="projekte" className="min-h-dvh flex flex-col justify-center py-16 sm:py-20">
+    <section id="projekte" className="flex flex-col justify-center py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 w-full">
         {/* Header */}
         <motion.div
@@ -160,7 +160,7 @@ export function Gallery() {
                   </span>
                 </div>
                 {/* Expand icon */}
-                <div className="absolute top-3 right-3 z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="absolute top-3 right-3 z-10 sm:opacity-0 transition-opacity duration-300 sm:group-hover:opacity-100">
                   <div className="w-8 h-8 rounded-lg bg-navy/70 backdrop-blur-md flex items-center justify-center border border-white/10">
                     <Expand className="h-3.5 w-3.5 text-white" />
                   </div>

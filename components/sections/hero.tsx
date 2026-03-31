@@ -57,11 +57,11 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative h-screen flex flex-col justify-between overflow-hidden"
+      className="relative h-[100svh] flex flex-col overflow-hidden"
     >
       <motion.div
         style={{ y, opacity }}
-        className="relative flex-1 flex flex-col justify-center mx-auto max-w-7xl w-full px-6 sm:px-8 lg:px-12 pt-20"
+        className="relative flex-1 flex flex-col justify-end pb-8 sm:justify-center sm:pb-0 mx-auto max-w-7xl w-full px-5 sm:px-8 lg:px-12 pt-20"
       >
         {/* Headline */}
         <motion.div
@@ -70,7 +70,7 @@ export function Hero() {
           transition={{ duration: 1.2, ease }}
         >
           <LayoutGroup>
-            <h1 className="text-[2rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold tracking-tight text-white leading-[1.08]">
+            <h1 className="text-[2.75rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold tracking-tight text-white sm:leading-[1.08]">
               <motion.span
                 className="block"
                 layout
@@ -78,7 +78,7 @@ export function Hero() {
               >
                 Strom ist
               </motion.span>
-              <motion.span className="block mt-2 sm:mt-3" layout>
+              <motion.span className="block mt-1 sm:mt-3" layout>
                 <TextRotate
                   texts={[
                     "Vertrauenssache.",
@@ -87,7 +87,7 @@ export function Hero() {
                     "Chefsache.",
                     "Präzisionssache.",
                   ]}
-                  mainClassName="inline-flex text-brand overflow-hidden py-2 sm:py-3 px-4 sm:px-6 border-2 border-brand/60 rounded-2xl"
+                  mainClassName="inline-flex text-brand overflow-hidden py-1 sm:py-3 px-2.5 sm:px-6 border-2 border-brand/60 rounded-lg sm:rounded-2xl"
                   staggerFrom="last"
                   initial={{ y: "100%" }}
                   animate={{ y: 0 }}
@@ -107,58 +107,22 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.4, ease }}
-          className="mt-8 sm:mt-10 text-base sm:text-lg text-slate-300 max-w-md leading-relaxed"
+          className="mt-5 sm:mt-10 text-base sm:text-lg text-slate-300 max-w-md leading-relaxed"
         >
           5 Elektrotechnikermeister. Über 50 Jahre Erfahrung.
-          Von der Beratung bis zur Abnahme. Ihre Vision, unsere Umsetzung.
+          Ihre Vision, unsere Umsetzung.
         </motion.p>
-
-        {/* Trust badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.55, ease }}
-          className="mt-6"
-        >
-          <div className="inline-flex items-center rounded-full border border-brand/50 bg-brand/20 backdrop-blur-sm px-4 py-2">
-            <div className="flex -space-x-1.5">
-              {[
-                "bg-brand",
-                "bg-brand",
-                "bg-brand-dark",
-                "bg-brand-dark",
-              ].map((bg, i) => (
-                <div
-                  key={i}
-                  className={`h-7 w-7 rounded-full ${bg} border-2 border-navy flex items-center justify-center text-[10px] font-bold text-white`}
-                >
-                  {["TB", "SM", "MW", "FS"][i]}
-                </div>
-              ))}
-            </div>
-            <div className="pl-3 flex items-center gap-1.5">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="h-3 w-3 fill-brand text-brand" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                ))}
-              </div>
-              <p className="text-xs text-slate-300">
-                <strong className="font-semibold text-brand">100+</strong> zufriedene Kunden
-              </p>
-            </div>
-          </div>
-        </motion.div>
 
         {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.7, ease }}
-          className="mt-6 flex flex-col sm:flex-row gap-3"
+          transition={{ duration: 0.9, delay: 0.55, ease }}
+          className="mt-5 sm:mt-8 flex flex-row gap-3"
         >
           <a
             href="#kontakt"
-            className="group relative inline-flex items-center justify-center gap-2.5 rounded-full bg-brand px-8 py-4 text-base font-bold text-navy transition-all duration-300 hover:bg-brand-light hover:shadow-[0_0_40px_-5px_rgba(253,191,0,0.6)] active:scale-[0.98]"
+            className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 sm:px-8 py-3.5 sm:py-4 text-[15px] sm:text-base font-bold text-navy transition-all duration-300 hover:bg-brand-light hover:shadow-[0_0_40px_-5px_rgba(253,191,0,0.6)] active:scale-[0.98]"
           >
             <span className="absolute inset-0 rounded-full bg-brand opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-50" />
             <span className="relative">Projekt starten</span>
@@ -166,16 +130,47 @@ export function Hero() {
           </a>
           <a
             href="#leistungen"
-            className="inline-flex items-center justify-center rounded-full border border-white/12 px-7 py-3.5 text-sm font-medium text-slate-300 transition-all duration-300 hover:border-white/25 hover:text-white"
+            className="inline-flex items-center justify-center rounded-full border border-white/15 px-5 sm:px-7 py-3.5 text-[15px] sm:text-sm font-medium text-slate-300 transition-all duration-300 hover:border-white/25 hover:text-white"
           >
             Leistungen
           </a>
         </motion.div>
+
+        {/* Trust badge */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.7, ease }}
+          className="mt-5 sm:mt-6"
+        >
+          <div className="inline-flex items-center gap-2 sm:gap-0 sm:rounded-full sm:border sm:border-brand/40 sm:bg-brand/15 sm:px-4 sm:py-2">
+            <div className="flex -space-x-1.5">
+              {["bg-brand", "bg-brand", "bg-brand-dark", "bg-brand-dark"].map((bg, i) => (
+                <div
+                  key={i}
+                  className={`h-6 w-6 sm:h-7 sm:w-7 rounded-full ${bg} border-2 border-navy flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-white`}
+                >
+                  {["TB", "SM", "MW", "FS"][i]}
+                </div>
+              ))}
+            </div>
+            <div className="pl-1 sm:pl-3 flex items-center gap-1.5">
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="h-3 w-3 fill-brand text-brand" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                ))}
+              </div>
+              <p className="text-[11px] sm:text-xs text-slate-300">
+                <strong className="font-semibold text-brand">100+</strong> Kunden
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
 
-      {/* Stats */}
-      <div className="relative mx-auto max-w-7xl w-full px-6 sm:px-8 lg:px-12 pb-10">
-        <div className="flex flex-wrap gap-x-8 sm:gap-x-14 gap-y-4 border-t border-white/8 pt-8">
+      {/* Stats - fest am unteren Rand */}
+      <div className="relative mx-auto max-w-7xl w-full px-5 sm:px-8 lg:px-12 pb-6 sm:pb-10">
+        <div className="grid grid-cols-3 border-t border-white/8 pt-5 sm:pt-8">
           {[
             { v: 50, s: "+", l: "Jahre Erfahrung", delay: 0.9 },
             { v: 5, s: "", l: "Meisterbetriebe", delay: 1.0 },
@@ -186,11 +181,12 @@ export function Hero() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: s.delay, ease }}
+              className={`${i === 1 ? "text-center" : i === 2 ? "text-right" : "text-left"}`}
             >
-              <div className="text-3xl sm:text-4xl font-bold text-white font-mono tabular-nums tracking-tight">
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white font-mono tabular-nums tracking-tight">
                 <Counter end={s.v} suffix={s.s} />
               </div>
-              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">
+              <div className="text-[10px] sm:text-xs text-slate-400 mt-0.5 uppercase tracking-wider">
                 {s.l}
               </div>
             </motion.div>

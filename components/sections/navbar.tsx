@@ -105,7 +105,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-navy-light border-l border-white/[0.1] lg:hidden"
+              className="fixed top-0 right-0 bottom-0 z-50 w-[280px] max-w-[80vw] bg-navy-light border-l border-white/[0.1] lg:hidden"
             >
               <div className="flex flex-col h-full pt-20 pb-8 px-6">
                 <div className="flex-1 space-y-1">

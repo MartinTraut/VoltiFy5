@@ -62,7 +62,7 @@ export function Process() {
   }, [])
 
   return (
-    <section id="prozess" className="min-h-dvh flex flex-col justify-center py-16 sm:py-20">
+    <section id="prozess" className="flex flex-col justify-center py-16 sm:py-20">
       <div ref={ref} className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 w-full">
         {/* Header */}
         <motion.div
@@ -98,12 +98,13 @@ export function Process() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 onClick={() => pick(i)}
-                className={`relative w-full text-left flex flex-col rounded-2xl overflow-hidden transition-[border-color,box-shadow] duration-500 ${
-                  isActive
-                    ? "border-2 border-brand/60 shadow-[0_0_30px_-10px_rgba(253,191,0,0.2)]"
-                    : "border border-white/[0.08] hover:border-white/[0.15]"
-                }`}
+                className="relative w-full text-left flex flex-col rounded-2xl overflow-hidden border border-white/[0.08] hover:border-white/[0.15]"
               >
+                {/* Brand-Rahmen für aktive Karte - als Overlay damit kein Layout-Sprung */}
+                <div className={`absolute inset-0 rounded-2xl border-2 pointer-events-none z-10 transition-opacity duration-700 ${
+                  isActive ? "border-brand/60 opacity-100" : "border-transparent opacity-0"
+                }`} />
+
                 {/* Progress-Bar */}
                 <div className="h-1 bg-navy-card">
                   {isActive && (
@@ -119,19 +120,19 @@ export function Process() {
                 </div>
 
                 {/* Karten-Inhalt */}
-                <div className={`flex-1 flex flex-col p-6 transition-colors duration-500 ${
+                <div className={`flex-1 flex flex-col p-5 sm:p-6 transition-[background-color] duration-700 ${
                   isActive ? "bg-navy-light" : "bg-navy-card/50"
                 }`}>
-                  {/* Kopfzeile: Nummer + Icon */}
+                  {/* Kopfzeile */}
                   <div className="flex items-center justify-between mb-5">
-                    <span className={`text-[28px] sm:text-[40px] font-black font-mono leading-none transition-colors duration-500 ${
+                    <span className={`text-[28px] sm:text-[36px] font-black font-mono leading-none transition-[color] duration-700 ${
                       isActive ? "text-brand" : isPast ? "text-brand/30" : "text-white/[0.06]"
                     }`}>
                       {step.num}
                     </span>
-                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-[background-color,color,box-shadow] duration-500 ${
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-[background-color,color] duration-700 ${
                       isActive
-                        ? "bg-brand text-navy shadow-lg shadow-brand/40"
+                        ? "bg-brand text-navy"
                         : isPast
                           ? "bg-brand/20 text-brand"
                           : "bg-white/[0.05] text-slate-500"
@@ -145,23 +146,23 @@ export function Process() {
                   </div>
 
                   {/* Titel */}
-                  <h3 className={`text-[17px] font-bold leading-tight transition-colors duration-500 ${
+                  <h3 className={`text-[17px] font-bold leading-tight transition-[color] duration-700 ${
                     isActive ? "text-white" : "text-slate-200"
                   }`}>
                     {step.title}
                   </h3>
 
                   {/* Beschreibung */}
-                  <p className={`mt-2.5 text-[13px] leading-relaxed flex-1 transition-colors duration-500 ${
+                  <p className={`mt-2.5 text-[13px] leading-relaxed flex-1 transition-[color] duration-700 ${
                     isActive ? "text-slate-300" : "text-slate-500"
                   }`}>
                     {step.desc}
                   </p>
 
                   {/* Detail-Badge */}
-                  <div className={`mt-5 self-start inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-[background-color,color,border-color] duration-500 ${
+                  <div className={`mt-5 self-start inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-[background-color,color,border-color] duration-700 ${
                     isActive
-                      ? "bg-brand text-navy"
+                      ? "bg-brand text-navy border border-transparent"
                       : isPast
                         ? "bg-brand/15 text-brand border border-brand/30"
                         : "bg-white/[0.04] text-slate-500 border border-white/[0.06]"
@@ -184,7 +185,7 @@ export function Process() {
         >
           <a
             href="#kontakt"
-            className="group inline-flex items-center gap-2.5 rounded-full bg-brand px-8 py-4 text-base font-bold text-navy transition-all duration-300 hover:bg-brand-light hover:shadow-lg hover:shadow-brand/40"
+            className="group inline-flex items-center gap-2.5 rounded-full bg-brand px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-bold text-navy transition-all duration-300 hover:bg-brand-light hover:shadow-lg hover:shadow-brand/40"
           >
             Jetzt Erstberatung anfragen
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

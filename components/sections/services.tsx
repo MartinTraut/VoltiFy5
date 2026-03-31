@@ -51,7 +51,7 @@ const services = [
 
 export function Services() {
   return (
-    <section id="leistungen" className="min-h-dvh flex flex-col justify-center py-16 sm:py-20">
+    <section id="leistungen" className="flex flex-col justify-center py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 w-full">
         {/* Header */}
         <motion.div
@@ -135,11 +135,11 @@ export function Services() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-10 flex justify-center"
         >
-          <div className="inline-flex flex-col sm:flex-row items-center gap-4 rounded-full border border-brand/20 bg-navy-light pl-6 pr-2 py-2">
+          <div className="rounded-2xl sm:rounded-full border border-brand/20 bg-navy-light px-6 py-4 sm:pl-6 sm:pr-2 sm:py-2 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 sm:inline-flex">
             <p className="text-[15px] text-white font-medium">Nicht das Richtige dabei?</p>
             <a
               href="#kontakt"
-              className="group inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-navy transition-all duration-300 hover:bg-brand-light hover:shadow-lg hover:shadow-brand/30"
+              className="group inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 sm:px-5 sm:py-2.5 text-sm font-bold text-navy transition-all duration-300 hover:bg-brand-light hover:shadow-lg hover:shadow-brand/30"
             >
               Kontakt aufnehmen
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

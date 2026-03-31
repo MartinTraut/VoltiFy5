@@ -5,7 +5,7 @@ import { ArrowRight, Phone, Zap, Check } from "lucide-react"
 
 export function CTASection() {
   return (
-    <section className="min-h-dvh flex flex-col justify-center relative overflow-hidden">
+    <section className="min-h-[80vh] sm:min-h-dvh flex flex-col justify-center relative overflow-hidden">
       <div className="relative mx-auto max-w-7xl w-full px-6 sm:px-8 lg:px-12 py-16 sm:py-20">
         <div className="max-w-3xl mx-auto text-center">
           {/* Badge */}
@@ -38,7 +38,7 @@ export function CTASection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.25 }}
-            className="mt-6 text-lg text-slate-200 max-w-lg mx-auto leading-relaxed"
+            className="mt-6 text-base sm:text-lg text-slate-200 max-w-lg mx-auto leading-relaxed"
           >
             Kostenlose Erstberatung. Transparente Planung.
             Professionelle Umsetzung. Alles aus einer Hand.
@@ -68,11 +68,11 @@ export function CTASection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.45 }}
-            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
+            className="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
           >
             <a
               href="#kontakt"
-              className="group relative inline-flex items-center justify-center gap-2.5 rounded-full bg-brand px-10 py-5 text-lg font-bold text-navy transition-all duration-300 hover:bg-brand-light hover:shadow-[0_0_40px_-8px_rgba(253,191,0,0.5)]"
+              className="group relative inline-flex items-center justify-center gap-2.5 rounded-full bg-brand px-7 sm:px-10 py-4 sm:py-5 text-base sm:text-lg font-bold text-navy transition-all duration-300 hover:bg-brand-light hover:shadow-[0_0_40px_-8px_rgba(253,191,0,0.5)]"
             >
               <span className="absolute inset-0 rounded-full bg-brand-light opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-30" />
               <span className="relative">Jetzt Beratung anfragen</span>
@@ -80,7 +80,7 @@ export function CTASection() {
             </a>
             <a
               href="tel:+4979419596362"
-              className="inline-flex items-center justify-center gap-2.5 rounded-full border-2 border-white/20 px-8 py-5 text-lg font-semibold text-white transition-all duration-300 hover:border-brand/50 hover:text-brand"
+              className="inline-flex items-center justify-center gap-2.5 rounded-full border-2 border-white/20 px-6 sm:px-8 py-4 sm:py-5 text-base sm:text-lg font-semibold text-white transition-all duration-300 hover:border-brand/50 hover:text-brand"
             >
               <Phone className="h-5 w-5" />
               07941 / 95 96 362

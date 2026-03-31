@@ -16,7 +16,7 @@ export function Contact() {
     "w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3.5 text-sm text-white placeholder:text-slate-500 transition-all duration-300 outline-none focus:border-brand/55 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(253,191,0,0.08)] focus:placeholder:text-slate-400"
 
   return (
-    <section id="kontakt" className="min-h-dvh flex flex-col justify-center py-16 sm:py-20">
+    <section id="kontakt" className="flex flex-col justify-center py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
