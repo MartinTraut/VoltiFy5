@@ -144,20 +144,20 @@ export function Testimonials() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="rounded-2xl border border-white/[0.08] bg-navy-light overflow-hidden mb-12"
         >
-          <div className="grid grid-cols-2 sm:grid-cols-4">
+          <div className="grid grid-cols-2 md:grid-cols-4">
             {/* Google Bewertung - Highlight */}
-            <div className="relative p-4 sm:p-8 bg-brand">
-              <div className="flex items-center gap-2 sm:gap-3">
-                <div className="text-3xl sm:text-5xl font-black text-navy font-mono leading-none tracking-tight">
+            <div className="relative p-5 sm:p-6 md:p-8 bg-brand text-center">
+              <div className="flex items-center justify-center gap-2">
+                <div className="text-3xl md:text-4xl lg:text-5xl font-black text-navy font-mono leading-none tracking-tight">
                   5.0
                 </div>
                 <div className="flex gap-0.5">
                   {Array.from({ length: 5 }).map((_, s) => (
-                    <Star key={s} className="h-3 w-3 sm:h-4 sm:w-4 fill-navy text-navy" />
+                    <Star key={s} className="h-3 w-3 md:h-4 md:w-4 fill-navy text-navy" />
                   ))}
                 </div>
               </div>
-              <div className="text-[10px] sm:text-xs text-navy/60 mt-1.5 sm:mt-2 uppercase tracking-wider font-bold">
+              <div className="text-[10px] md:text-xs text-navy/60 mt-1.5 uppercase tracking-wider font-bold">
                 Google Bewertung
               </div>
             </div>
@@ -168,12 +168,12 @@ export function Testimonials() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative p-4 sm:p-8 border-l border-white/[0.06]"
+              className="relative p-5 sm:p-6 md:p-8 border-l border-white/[0.06] text-center"
             >
-              <div className="text-3xl sm:text-5xl font-black text-white font-mono leading-none tracking-tight">
+              <div className="text-3xl md:text-4xl lg:text-5xl font-black text-white font-mono leading-none tracking-tight">
                 <Counter end={100} suffix="%" />
               </div>
-              <div className="text-[10px] sm:text-xs text-slate-400 mt-1.5 sm:mt-2 uppercase tracking-wider font-semibold">
+              <div className="text-[10px] md:text-xs text-slate-400 mt-1.5 uppercase tracking-wider font-semibold">
                 Weiterempfehlung
               </div>
             </motion.div>
@@ -184,12 +184,12 @@ export function Testimonials() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="relative p-4 sm:p-8 border-l border-white/[0.06]"
+              className="relative p-5 sm:p-6 md:p-8 border-l border-t md:border-t-0 border-white/[0.06] text-center"
             >
-              <div className="text-3xl sm:text-5xl font-black text-white font-mono leading-none tracking-tight">
+              <div className="text-3xl md:text-4xl lg:text-5xl font-black text-white font-mono leading-none tracking-tight">
                 <Counter end={100} suffix="+" />
               </div>
-              <div className="text-[10px] sm:text-xs text-slate-400 mt-1.5 sm:mt-2 uppercase tracking-wider font-semibold">
+              <div className="text-[10px] md:text-xs text-slate-400 mt-1.5 uppercase tracking-wider font-semibold">
                 Kunden
               </div>
             </motion.div>
@@ -200,12 +200,12 @@ export function Testimonials() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="relative p-4 sm:p-8 border-l border-white/[0.06]"
+              className="relative p-5 sm:p-6 md:p-8 border-l border-t md:border-t-0 border-white/[0.06] text-center"
             >
-              <div className="text-3xl sm:text-5xl font-black text-white font-mono leading-none tracking-tight">
+              <div className="text-3xl md:text-4xl lg:text-5xl font-black text-white font-mono leading-none tracking-tight">
                 <Counter end={1000} suffix="+" />
               </div>
-              <div className="text-[10px] sm:text-xs text-slate-400 mt-1.5 sm:mt-2 uppercase tracking-wider font-semibold">
+              <div className="text-[10px] md:text-xs text-slate-400 mt-1.5 uppercase tracking-wider font-semibold">
                 Projekte
               </div>
             </motion.div>
