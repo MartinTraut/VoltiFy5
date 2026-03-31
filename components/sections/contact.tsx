@@ -13,10 +13,10 @@ export function Contact() {
   }
 
   const input =
-    "w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-sm text-white placeholder:text-slate-600 transition-all duration-300 outline-none focus:border-brand/40 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(253,191,0,0.08)] focus:placeholder:text-slate-500"
+    "w-full rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3.5 text-sm text-white placeholder:text-slate-500 transition-all duration-300 outline-none focus:border-brand/55 focus:bg-white/[0.06] focus:shadow-[0_0_0_3px_rgba(253,191,0,0.08)] focus:placeholder:text-slate-400"
 
   return (
-    <section id="kontakt" className="min-h-dvh flex flex-col justify-center py-16 sm:py-20 snap-start">
+    <section id="kontakt" className="min-h-dvh flex flex-col justify-center py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -29,9 +29,9 @@ export function Contact() {
           <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-[1.1]">
             Jetzt
             <br />
-            <span className="text-slate-400">Kontakt aufnehmen.</span>
+            <span className="text-brand">Kontakt aufnehmen.</span>
           </h2>
-          <p className="mt-5 text-lg text-slate-400 leading-relaxed">
+          <p className="mt-5 text-lg text-slate-300 leading-relaxed">
             Kostenlose Erstberatung für Ihr Elektro-Projekt in Öhringen und
             Umgebung. Wir melden uns innerhalb von 24 Stunden.
           </p>
@@ -52,7 +52,7 @@ export function Contact() {
                 <h3 className="mt-4 text-xl font-semibold text-white">
                   Nachricht gesendet
                 </h3>
-                <p className="mt-2 text-sm text-slate-400">
+                <p className="mt-2 text-sm text-slate-300">
                   Wir melden uns innerhalb von 24 Stunden bei Ihnen.
                 </p>
                 <button
@@ -66,13 +66,13 @@ export function Contact() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                    <label className="block text-xs font-medium text-slate-300 mb-1.5">
                       Name *
                     </label>
                     <input type="text" required className={input} placeholder="Vollständiger Name" />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                    <label className="block text-xs font-medium text-slate-300 mb-1.5">
                       E-Mail *
                     </label>
                     <input type="email" required className={input} placeholder="ihre@email.de" />
@@ -80,13 +80,13 @@ export function Contact() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                    <label className="block text-xs font-medium text-slate-300 mb-1.5">
                       Telefon
                     </label>
                     <input type="tel" className={input} placeholder="Telefonnummer" />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                    <label className="block text-xs font-medium text-slate-300 mb-1.5">
                       Betreff
                     </label>
                     <select className={`${input} [&>option]:bg-slate-900 [&>option]:text-white`}>
@@ -102,7 +102,7 @@ export function Contact() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                  <label className="block text-xs font-medium text-slate-300 mb-1.5">
                     Nachricht *
                   </label>
                   <textarea
@@ -118,9 +118,9 @@ export function Contact() {
                     required
                     className="mt-0.5 h-4 w-4 rounded border-white/20 bg-white/5 text-brand focus:ring-brand/20"
                   />
-                  <span className="text-xs text-slate-500 leading-relaxed">
+                  <span className="text-xs text-slate-400 leading-relaxed">
                     Ich stimme der Verarbeitung meiner Daten gemäß der{" "}
-                    <a href="/datenschutzerklarung" className="underline text-slate-400 hover:text-white">
+                    <a href="/datenschutzerklarung" className="underline text-slate-300 hover:text-white">
                       Datenschutzerklärung
                     </a>{" "}
                     zu.
@@ -128,7 +128,7 @@ export function Contact() {
                 </div>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-bold text-navy transition-colors hover:bg-brand-light hover:shadow-lg hover:shadow-brand/40"
+                  className="inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-bold text-navy transition-colors hover:bg-brand-light hover:shadow-lg hover:shadow-brand/55"
                 >
                   <Send className="h-4 w-4" />
                   Nachricht senden
@@ -155,7 +155,7 @@ export function Contact() {
                 <div key={label} className="flex items-start gap-3">
                   <Icon className="h-4 w-4 text-brand mt-0.5 shrink-0" />
                   <div>
-                    <div className="text-xs font-medium text-slate-500 uppercase tracking-wider">{label}</div>
+                    <div className="text-xs font-medium text-slate-400 uppercase tracking-wider">{label}</div>
                     {href ? (
                       <a href={href} className="text-sm text-slate-300 hover:text-brand transition-colors whitespace-pre-line">
                         {value}

@@ -19,17 +19,19 @@ export function ElectricCanvas({ className }: { className?: string }) {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    const isMobile = window.innerWidth < 768
+
     let raf: number
     let w = 0
     let h = 0
     let mouse = { x: -1000, y: -1000 }
     const particles: Particle[] = []
-    const COUNT = 80
-    const CONNECT_DIST = 140
-    const MOUSE_DIST = 200
+    const COUNT = isMobile ? 40 : 100
+    const CONNECT_DIST = isMobile ? 120 : 160
+    const MOUSE_DIST = 220
 
     function resize() {
-      const dpr = Math.min(window.devicePixelRatio, 2)
+      const dpr = Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2)
       w = canvas!.clientWidth
       h = canvas!.clientHeight
       canvas!.width = w * dpr
@@ -44,9 +46,9 @@ export function ElectricCanvas({ className }: { className?: string }) {
         particles.push({
           x: Math.random() * w,
           y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          r: Math.random() * 1.5 + 0.5,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          r: Math.random() * 2 + 0.8,
         })
       }
     }
@@ -59,29 +61,36 @@ export function ElectricCanvas({ className }: { className?: string }) {
         p.x += p.vx
         p.y += p.vy
 
-        // Bounce off edges
         if (p.x < 0 || p.x > w) p.vx *= -1
         if (p.y < 0 || p.y > h) p.vy *= -1
 
-        // Mouse repulsion (subtle)
-        const dx = p.x - mouse.x
-        const dy = p.y - mouse.y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < MOUSE_DIST) {
-          const force = (MOUSE_DIST - dist) / MOUSE_DIST * 0.015
-          p.vx += dx * force
-          p.vy += dy * force
+        if (!isMobile) {
+          const dx = p.x - mouse.x
+          const dy = p.y - mouse.y
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist < MOUSE_DIST) {
+            const force = (MOUSE_DIST - dist) / MOUSE_DIST * 0.02
+            p.vx += dx * force
+            p.vy += dy * force
+          }
         }
 
-        // Dampen velocity
         p.vx *= 0.998
         p.vy *= 0.998
 
-        // Draw particle
+        // Particle dot - simple circle, no glow on mobile
         ctx!.beginPath()
         ctx!.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx!.fillStyle = "rgba(253, 191, 0, 0.8)"
+        ctx!.fillStyle = isMobile ? "rgba(253, 210, 50, 0.8)" : "rgba(253, 210, 50, 1)"
         ctx!.fill()
+
+        // Glow only on desktop
+        if (!isMobile) {
+          ctx!.beginPath()
+          ctx!.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2)
+          ctx!.fillStyle = "rgba(253, 191, 0, 0.15)"
+          ctx!.fill()
+        }
 
         // Connections
         for (let j = i + 1; j < particles.length; j++) {
@@ -90,12 +99,12 @@ export function ElectricCanvas({ className }: { className?: string }) {
           const cdy = p.y - q.y
           const cd = Math.sqrt(cdx * cdx + cdy * cdy)
           if (cd < CONNECT_DIST) {
-            const alpha = (1 - cd / CONNECT_DIST) * 0.22
+            const alpha = (1 - cd / CONNECT_DIST) * (isMobile ? 0.2 : 0.35)
             ctx!.beginPath()
             ctx!.moveTo(p.x, p.y)
             ctx!.lineTo(q.x, q.y)
-            ctx!.strokeStyle = `rgba(253, 191, 0, ${alpha})`
-            ctx!.lineWidth = 0.5
+            ctx!.strokeStyle = `rgba(253, 200, 20, ${alpha})`
+            ctx!.lineWidth = 0.7
             ctx!.stroke()
           }
         }
@@ -118,8 +127,10 @@ export function ElectricCanvas({ className }: { className?: string }) {
     draw()
 
     window.addEventListener("resize", resize)
-    canvas.addEventListener("mousemove", onMouse)
-    canvas.addEventListener("mouseleave", onLeave)
+    if (!isMobile) {
+      canvas.addEventListener("mousemove", onMouse)
+      canvas.addEventListener("mouseleave", onLeave)
+    }
 
     return () => {
       cancelAnimationFrame(raf)

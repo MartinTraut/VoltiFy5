@@ -57,7 +57,7 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative h-screen flex flex-col justify-between overflow-hidden snap-start"
+      className="relative h-screen flex flex-col justify-between overflow-hidden"
     >
       <motion.div
         style={{ y, opacity }}
@@ -107,7 +107,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.4, ease }}
-          className="mt-8 sm:mt-10 text-base sm:text-lg text-slate-400 max-w-md leading-relaxed"
+          className="mt-8 sm:mt-10 text-base sm:text-lg text-slate-300 max-w-md leading-relaxed"
         >
           5 Elektrotechnikermeister. Über 50 Jahre Erfahrung.
           Von der Beratung bis zur Abnahme. Ihre Vision, unsere Umsetzung.
@@ -120,7 +120,7 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 0.55, ease }}
           className="mt-6"
         >
-          <div className="inline-flex items-center rounded-full border border-brand/35 bg-brand/15 backdrop-blur-sm px-4 py-2">
+          <div className="inline-flex items-center rounded-full border border-brand/50 bg-brand/20 backdrop-blur-sm px-4 py-2">
             <div className="flex -space-x-1.5">
               {[
                 "bg-brand",
@@ -142,7 +142,7 @@ export function Hero() {
                   <svg key={i} className="h-3 w-3 fill-brand text-brand" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                 ))}
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-300">
                 <strong className="font-semibold text-brand">100+</strong> zufriedene Kunden
               </p>
             </div>
@@ -190,7 +190,7 @@ export function Hero() {
               <div className="text-3xl sm:text-4xl font-bold text-white font-mono tabular-nums tracking-tight">
                 <Counter end={s.v} suffix={s.s} />
               </div>
-              <div className="text-xs text-slate-500 mt-1 uppercase tracking-wider">
+              <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">
                 {s.l}
               </div>
             </motion.div>

@@ -3,7 +3,7 @@ import { Logo } from "@/components/logo"
 
 export function Footer() {
   return (
-    <footer className="text-slate-500 snap-end border-t border-white/[0.06]">
+    <footer className="text-slate-400 border-t border-white/[0.1]">
       <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
@@ -15,7 +15,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4">
               Leistungen
             </h3>
             <ul className="space-y-2.5 text-sm">
@@ -28,7 +28,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4">
               Kontakt
             </h3>
             <ul className="space-y-2.5 text-sm">
@@ -47,7 +47,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">
+            <h3 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-4">
               Rechtliches
             </h3>
             <ul className="space-y-2.5 text-sm">
@@ -71,14 +71,14 @@ export function Footer() {
                 { label: "Handwerkskammer", abbr: "HWK" },
               ].map((t) => (
                 <div key={t.abbr} className="flex items-center gap-2">
-                  <div className="h-7 w-7 rounded-full bg-brand/15 flex items-center justify-center">
+                  <div className="h-7 w-7 rounded-full bg-brand/20 flex items-center justify-center">
                     <span className="text-brand text-[9px] font-bold">{t.abbr}</span>
                   </div>
-                  <span className="text-xs text-slate-500">{t.label}</span>
+                  <span className="text-xs text-slate-400">{t.label}</span>
                 </div>
               ))}
             </div>
-            <span className="text-xs text-slate-600">
+            <span className="text-xs text-slate-500">
               &copy; {new Date().getFullYear()} Voltify5 GmbH
             </span>
           </div>

@@ -1,39 +1,44 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { motion } from "framer-motion"
-import { Phone, ClipboardList, HardHat, ThumbsUp, ArrowRight } from "lucide-react"
+import { Phone, ClipboardList, HardHat, ThumbsUp, ArrowRight, Check } from "lucide-react"
 
 const steps = [
   {
     title: "Erstberatung",
-    desc: "Wir hören zu. Persönliches Gespräch, ehrliche Beratung, Besichtigung vor Ort. Kostenlos und unverbindlich.",
+    desc: "Persönliches Gespräch, ehrliche Beratung und Besichtigung vor Ort. Kostenlos und unverbindlich.",
     icon: Phone,
-    detail: "Innerhalb von 48h",
+    detail: "Innerhalb 48h",
+    num: "01",
   },
   {
     title: "Planung & Angebot",
-    desc: "Detailliertes Konzept mit klarer Kostenkalkulation. Keine versteckten Posten. Sie entscheiden in Ruhe.",
+    desc: "Detailliertes Konzept mit klarer Kostenkalkulation. Keine versteckten Posten, keine Überraschungen.",
     icon: ClipboardList,
     detail: "Festpreisgarantie",
+    num: "02",
   },
   {
     title: "Umsetzung",
-    desc: "Unsere Meister arbeiten sauber, termingerecht und mit Respekt vor Ihrem Eigentum. Immer auf dem Laufenden.",
+    desc: "Unsere Meister arbeiten sauber, termingerecht und mit Respekt vor Ihrem Eigentum.",
     icon: HardHat,
     detail: "Termingerecht",
+    num: "03",
   },
   {
     title: "Abnahme & Service",
-    desc: "Gemeinsame Prüfung, Einweisung, Dokumentation. Auch danach sind wir für Sie da.",
+    desc: "Gemeinsame Prüfung, Einweisung und Dokumentation. Auch danach für Sie da.",
     icon: ThumbsUp,
     detail: "Langzeit-Garantie",
+    num: "04",
   },
 ]
 
 export function Process() {
   const [active, setActive] = useState(0)
   const [visible, setVisible] = useState(false)
+  const [paused, setPaused] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -45,177 +50,146 @@ export function Process() {
   }, [])
 
   useEffect(() => {
-    if (!visible) return
-    const interval = setInterval(() => setActive((p) => (p + 1) % 4), 3500)
-    return () => clearInterval(interval)
-  }, [visible])
+    if (!visible || paused) return
+    const id = setInterval(() => setActive((p) => (p + 1) % 4), 6000)
+    return () => clearInterval(id)
+  }, [visible, paused])
 
-  const ActiveIcon = steps[active].icon
+  const pick = useCallback((i: number) => {
+    setActive(i)
+    setPaused(true)
+    setTimeout(() => setPaused(false), 10000)
+  }, [])
 
   return (
-    <section id="prozess" className="min-h-dvh flex flex-col justify-center py-16 sm:py-20 snap-start">
+    <section id="prozess" className="min-h-dvh flex flex-col justify-center py-16 sm:py-20">
       <div ref={ref} className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          {/* Left: interactive display */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            {/* Large animated step display */}
-            <div className="relative aspect-[4/3] rounded-3xl bg-white/[0.03] border border-white/[0.06] overflow-hidden backdrop-blur-sm">
-              {/* Background glow */}
-              <div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-brand/[0.06] rounded-full blur-[80px]"
-                style={{ transform: "translate(-50%,-50%) translate3d(0,0,0)" }}
-              />
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-2xl mb-14"
+        >
+          <p className="text-sm font-medium text-brand mb-4 uppercase tracking-wider">So arbeiten wir</p>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-[1.1]">
+            Vier Schritte.
+            <br />
+            <span className="text-brand">Ein Ergebnis.</span>
+          </h2>
+          <p className="mt-5 text-slate-300 leading-relaxed">
+            Transparent, strukturiert und persönlich. Von der ersten Idee bis zum fertigen Projekt.
+          </p>
+        </motion.div>
 
-              {/* Content */}
-              <div className="relative h-full flex flex-col items-center justify-center p-8 sm:p-12 text-center">
-                {/* Step number */}
-                <motion.div
-                  key={active}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4 }}
-                  className="text-[120px] sm:text-[160px] font-black text-white/[0.03] leading-none absolute top-4 right-6 select-none font-mono"
-                >
-                  {String(active + 1).padStart(2, "0")}
-                </motion.div>
+        {/* 4 Karten */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {steps.map((step, i) => {
+            const Icon = step.icon
+            const isActive = active === i
+            const isPast = i < active
 
-                {/* Icon */}
-                <motion.div
-                  key={`icon-${active}`}
-                  initial={{ opacity: 0, scale: 0.5, rotate: -20 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  transition={{ duration: 0.5, type: "spring", damping: 15 }}
-                  className="w-16 h-16 rounded-2xl bg-brand flex items-center justify-center mb-6 shadow-lg shadow-brand/35"
-                >
-                  <ActiveIcon className="h-7 w-7 text-white" strokeWidth={1.5} />
-                </motion.div>
+            return (
+              <motion.button
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                onClick={() => pick(i)}
+                className={`relative w-full text-left flex flex-col rounded-2xl overflow-hidden transition-[border-color,box-shadow] duration-500 ${
+                  isActive
+                    ? "border-2 border-brand/60 shadow-[0_0_30px_-10px_rgba(253,191,0,0.2)]"
+                    : "border border-white/[0.08] hover:border-white/[0.15]"
+                }`}
+              >
+                {/* Progress-Bar */}
+                <div className="h-1 bg-navy-card">
+                  {isActive && (
+                    <motion.div
+                      className="h-full bg-brand"
+                      initial={{ width: "0%" }}
+                      animate={{ width: "100%" }}
+                      key={`bar-${i}-${active}-${paused}`}
+                      transition={{ duration: paused ? 10 : 6, ease: "linear" }}
+                    />
+                  )}
+                  {isPast && <div className="h-full w-full bg-brand" />}
+                </div>
 
-                {/* Title */}
-                <motion.h3
-                  key={`title-${active}`}
-                  initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  transition={{ duration: 0.5, delay: 0.05 }}
-                  className="text-2xl sm:text-3xl font-bold text-white"
-                >
-                  {steps[active].title}
-                </motion.h3>
-
-                {/* Description */}
-                <motion.p
-                  key={`desc-${active}`}
-                  initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
-                  className="mt-3 text-slate-400 max-w-sm leading-relaxed"
-                >
-                  {steps[active].desc}
-                </motion.p>
-
-                {/* Detail badge */}
-                <motion.div
-                  key={`detail-${active}`}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.15 }}
-                  className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-brand/15 border border-brand/35 px-4 py-1.5 text-xs font-medium text-brand"
-                >
-                  {steps[active].detail}
-                </motion.div>
-              </div>
-
-              {/* Progress bar at bottom */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/[0.04]">
-                <motion.div
-                  className="h-full bg-brand"
-                  initial={{ width: "0%" }}
-                  animate={{ width: "100%" }}
-                  key={active}
-                  transition={{ duration: 3.5, ease: "linear" }}
-                />
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right: heading + step list */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            <p className="text-sm font-medium text-brand mb-4 uppercase tracking-wider">So arbeiten wir</p>
-            <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight leading-[1.1]">
-              Ihr Projekt.
-              <br />
-              <span className="text-slate-400">Unser Ablauf.</span>
-            </h2>
-            <p className="mt-4 text-slate-400 leading-relaxed">
-              Von der ersten Idee bis zum fertigen Projekt. Transparent, strukturiert, persönlich.
-            </p>
-
-            {/* Step buttons */}
-            <div className="mt-10 space-y-3">
-              {steps.map((step, i) => {
-                const Icon = step.icon
-                const isActive = active === i
-                return (
-                  <button
-                    key={i}
-                    onClick={() => setActive(i)}
-                    className={`w-full text-left flex items-center gap-4 rounded-xl p-4 transition-all duration-300 ${
-                      isActive
-                        ? "bg-brand/15 border border-brand/35"
-                        : "bg-transparent border border-transparent hover:bg-white/[0.03]"
-                    }`}
-                  >
-                    <div
-                      className={`shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 ${
-                        isActive ? "bg-brand text-white" : "bg-white/5 text-slate-500"
-                      }`}
-                    >
-                      <Icon className="h-5 w-5" strokeWidth={1.5} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span
-                          className={`text-[11px] font-mono font-bold ${
-                            isActive ? "text-brand" : "text-slate-600"
-                          }`}
-                        >
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <h3 className={`text-sm font-semibold ${isActive ? "text-white" : "text-slate-400"}`}>
-                          {step.title}
-                        </h3>
-                      </div>
-                    </div>
-                    <span
-                      className={`text-[11px] font-medium transition-colors ${
-                        isActive ? "text-brand" : "text-slate-600"
-                      }`}
-                    >
-                      {step.detail}
+                {/* Karten-Inhalt */}
+                <div className={`flex-1 flex flex-col p-6 transition-colors duration-500 ${
+                  isActive ? "bg-navy-light" : "bg-navy-card/50"
+                }`}>
+                  {/* Kopfzeile: Nummer + Icon */}
+                  <div className="flex items-center justify-between mb-5">
+                    <span className={`text-[28px] sm:text-[40px] font-black font-mono leading-none transition-colors duration-500 ${
+                      isActive ? "text-brand" : isPast ? "text-brand/30" : "text-white/[0.06]"
+                    }`}>
+                      {step.num}
                     </span>
-                  </button>
-                )
-              })}
-            </div>
+                    <div className={`w-11 h-11 rounded-xl flex items-center justify-center transition-[background-color,color,box-shadow] duration-500 ${
+                      isActive
+                        ? "bg-brand text-navy shadow-lg shadow-brand/40"
+                        : isPast
+                          ? "bg-brand/20 text-brand"
+                          : "bg-white/[0.05] text-slate-500"
+                    }`}>
+                      {isPast ? (
+                        <Check className="h-5 w-5" strokeWidth={2.5} />
+                      ) : (
+                        <Icon className="h-5 w-5" strokeWidth={1.5} />
+                      )}
+                    </div>
+                  </div>
 
-            <a
-              href="#kontakt"
-              className="group inline-flex items-center gap-2 mt-8 text-sm font-semibold text-brand hover:text-brand-light transition-colors"
-            >
-              Jetzt Erstberatung anfragen
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </a>
-          </motion.div>
+                  {/* Titel */}
+                  <h3 className={`text-[17px] font-bold leading-tight transition-colors duration-500 ${
+                    isActive ? "text-white" : "text-slate-200"
+                  }`}>
+                    {step.title}
+                  </h3>
+
+                  {/* Beschreibung */}
+                  <p className={`mt-2.5 text-[13px] leading-relaxed flex-1 transition-colors duration-500 ${
+                    isActive ? "text-slate-300" : "text-slate-500"
+                  }`}>
+                    {step.desc}
+                  </p>
+
+                  {/* Detail-Badge */}
+                  <div className={`mt-5 self-start inline-flex items-center rounded-full px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-[background-color,color,border-color] duration-500 ${
+                    isActive
+                      ? "bg-brand text-navy"
+                      : isPast
+                        ? "bg-brand/15 text-brand border border-brand/30"
+                        : "bg-white/[0.04] text-slate-500 border border-white/[0.06]"
+                  }`}>
+                    {step.detail}
+                  </div>
+                </div>
+              </motion.button>
+            )
+          })}
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-10 flex justify-center"
+        >
+          <a
+            href="#kontakt"
+            className="group inline-flex items-center gap-2.5 rounded-full bg-brand px-8 py-4 text-base font-bold text-navy transition-all duration-300 hover:bg-brand-light hover:shadow-lg hover:shadow-brand/40"
+          >
+            Jetzt Erstberatung anfragen
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </a>
+        </motion.div>
       </div>
     </section>
   )

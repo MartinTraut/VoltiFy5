@@ -8,34 +8,29 @@ export function GlobalBackground() {
       {/* Electric particle canvas */}
       <ElectricCanvas className="absolute inset-0" />
 
-      {/* Juicy ambient gradient orbs - stronger opacity */}
+      {/* Ambient orbs - reduced on mobile via smaller size + less blur */}
       <div
-        className="absolute -top-[20%] -left-[15%] w-[65%] h-[65%] rounded-full blur-[120px] animate-drift-1"
-        style={{ background: "radial-gradient(circle, rgba(253,191,0,0.12) 0%, rgba(253,191,0,0) 70%)" }}
+        className="absolute -top-[15%] -left-[10%] w-[60%] h-[60%] sm:w-[70%] sm:h-[70%] rounded-full blur-[60px] sm:blur-[100px] animate-drift-1"
+        style={{ background: "radial-gradient(circle, rgba(253,191,0,0.15) 0%, rgba(253,191,0,0) 70%)" }}
       />
       <div
-        className="absolute -bottom-[20%] -right-[15%] w-[60%] h-[60%] rounded-full blur-[100px] animate-drift-2"
-        style={{ background: "radial-gradient(circle, rgba(253,191,0,0.14) 0%, rgba(253,191,0,0) 70%)" }}
+        className="absolute -bottom-[15%] -right-[10%] w-[55%] h-[55%] sm:w-[65%] sm:h-[65%] rounded-full blur-[50px] sm:blur-[90px] animate-drift-2"
+        style={{ background: "radial-gradient(circle, rgba(253,191,0,0.18) 0%, rgba(253,191,0,0) 70%)" }}
+      />
+      {/* Third and fourth orb only on desktop */}
+      <div
+        className="hidden sm:block absolute top-[20%] left-[10%] w-[60%] h-[60%] rounded-full blur-[80px] animate-drift-3"
+        style={{ background: "radial-gradient(circle, rgba(253,210,40,0.1) 0%, rgba(253,210,40,0) 65%)" }}
       />
       <div
-        className="absolute top-[25%] left-[15%] w-[55%] h-[55%] rounded-full blur-[90px] animate-drift-3"
-        style={{ background: "radial-gradient(circle, rgba(253,191,0,0.08) 0%, rgba(253,191,0,0) 65%)" }}
-      />
-      <div
-        className="absolute top-[5%] right-[-5%] w-[45%] h-[45%] rounded-full blur-[80px] animate-drift-4"
-        style={{ background: "radial-gradient(circle, rgba(253,170,0,0.07) 0%, rgba(253,170,0,0) 60%)" }}
-      />
-
-      {/* Subtle warm tint across entire background */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "linear-gradient(135deg, rgba(253,191,0,0.03) 0%, transparent 50%, rgba(253,191,0,0.02) 100%)" }}
+        className="hidden sm:block absolute top-[0%] right-[-5%] w-[50%] h-[50%] rounded-full blur-[70px] animate-drift-4"
+        style={{ background: "radial-gradient(circle, rgba(253,180,0,0.08) 0%, rgba(253,180,0,0) 60%)" }}
       />
 
       {/* Vignette */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, transparent 40%, rgba(7,14,27,0.5) 100%)" }}
+        style={{ background: "radial-gradient(ellipse at center, transparent 35%, rgba(7,14,27,0.6) 100%)" }}
       />
     </div>
   )

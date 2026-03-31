@@ -51,14 +51,14 @@
     --color-navy-light: #0C1829;
     --color-navy-card: #101E35;
 
-    /* Logo Yellow #FDBF00 palette */
+    /* Logo Yellow #FDBF00 palette - punchy */
     --color-brand: #FDBF00;
-    --color-brand-light: #FDCB33;
-    --color-brand-dark: #D9A300;
-    --color-brand-50: rgba(253, 191, 0, 0.05);
-    --color-brand-100: rgba(253, 191, 0, 0.1);
-    --color-brand-200: rgba(253, 191, 0, 0.2);
-    --color-brand-300: rgba(253, 191, 0, 0.3);
+    --color-brand-light: #FFD033;
+    --color-brand-dark: #E5AD00;
+    --color-brand-50: rgba(253, 191, 0, 0.08);
+    --color-brand-100: rgba(253, 191, 0, 0.15);
+    --color-brand-200: rgba(253, 191, 0, 0.25);
+    --color-brand-300: rgba(253, 191, 0, 0.4);
 }
 
 :root {
@@ -138,15 +138,14 @@
         @apply bg-background text-foreground;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: "kern" 1, "liga" 1;
     }
     html {
         @apply font-sans;
         scroll-behavior: smooth;
         scroll-padding-top: 72px;
-        /* Smooth scroll snap */
-        scroll-snap-type: y proximity;
     }
-    /* Smooth section snapping */
     html::-webkit-scrollbar {
         width: 6px;
     }
@@ -154,17 +153,20 @@
         background: transparent;
     }
     html::-webkit-scrollbar-thumb {
-        background: rgba(253, 191, 0, 0.2);
+        background: rgba(253, 191, 0, 0.35);
         border-radius: 3px;
     }
     html::-webkit-scrollbar-thumb:hover {
-        background: rgba(253, 191, 0, 0.4);
+        background: rgba(253, 191, 0, 0.6);
     }
     h1, h2, h3, h4, h5, h6 {
         text-wrap: balance;
+        letter-spacing: -0.02em;
     }
+    h1 { letter-spacing: -0.03em; }
     p {
         text-wrap: pretty;
+        letter-spacing: 0.005em;
     }
 }
 
@@ -172,31 +174,41 @@
 
 /* Global background drift animations */
 @keyframes drift-1 {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.035; }
-    25% { transform: translate(6%, 3%) scale(1.06); opacity: 0.05; }
-    50% { transform: translate(10%, 8%) scale(1.1); opacity: 0.03; }
-    75% { transform: translate(-3%, 5%) scale(0.97); opacity: 0.045; }
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+    25% { transform: translate(6%, 3%) scale(1.06); opacity: 1; }
+    50% { transform: translate(10%, 8%) scale(1.1); opacity: 0.6; }
+    75% { transform: translate(-3%, 5%) scale(0.97); opacity: 0.9; }
 }
 @keyframes drift-2 {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.04; }
-    30% { transform: translate(-6%, -3%) scale(1.04); opacity: 0.03; }
-    60% { transform: translate(3%, -6%) scale(1.08); opacity: 0.05; }
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+    30% { transform: translate(-6%, -3%) scale(1.04); opacity: 0.6; }
+    60% { transform: translate(3%, -6%) scale(1.08); opacity: 1; }
 }
 @keyframes drift-3 {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.025; }
-    40% { transform: translate(8%, -5%) scale(1.1); opacity: 0.04; }
-    70% { transform: translate(15%, -10%) scale(1.15); opacity: 0.02; }
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+    40% { transform: translate(8%, -5%) scale(1.1); opacity: 0.9; }
+    70% { transform: translate(15%, -10%) scale(1.15); opacity: 0.5; }
 }
 @keyframes drift-4 {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.02; }
-    35% { transform: translate(-8%, 4%) scale(1.05); opacity: 0.035; }
-    65% { transform: translate(5%, -3%) scale(0.96); opacity: 0.025; }
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+    35% { transform: translate(-8%, 4%) scale(1.05); opacity: 0.8; }
+    65% { transform: translate(5%, -3%) scale(0.96); opacity: 0.6; }
 }
 
-.animate-drift-1 { animation: drift-1 30s ease-in-out infinite; will-change: transform, opacity; }
-.animate-drift-2 { animation: drift-2 35s ease-in-out infinite; will-change: transform, opacity; }
-.animate-drift-3 { animation: drift-3 25s ease-in-out infinite; will-change: transform, opacity; }
-.animate-drift-4 { animation: drift-4 40s ease-in-out infinite; will-change: transform, opacity; }
+.animate-drift-1 { animation: drift-1 30s ease-in-out infinite; }
+.animate-drift-2 { animation: drift-2 35s ease-in-out infinite; }
+.animate-drift-3 { animation: drift-3 25s ease-in-out infinite; }
+.animate-drift-4 { animation: drift-4 40s ease-in-out infinite; }
+
+/* Disable heavy animations on mobile */
+@media (max-width: 640px) {
+    .animate-drift-1,
+    .animate-drift-2,
+    .animate-drift-3,
+    .animate-drift-4 {
+        animation-duration: 60s;
+    }
+}
 
 @keyframes gradient-shift {
     0%, 100% { background-position: 0% 50%; }

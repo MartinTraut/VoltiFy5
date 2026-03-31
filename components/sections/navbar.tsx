@@ -33,7 +33,7 @@ export function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-navy/80 backdrop-blur-xl border-b border-white/[0.06]"
+          ? "bg-navy/90 backdrop-blur-md border-b border-white/[0.1]"
           : "bg-transparent"
       }`}
     >
@@ -48,7 +48,7 @@ export function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[0.84rem] font-medium text-slate-400 hover:text-white transition-colors duration-200"
+                className="text-[0.84rem] font-medium text-slate-300 hover:text-white transition-colors duration-200"
               >
                 {link.label}
               </a>
@@ -58,7 +58,7 @@ export function Navbar() {
           <div className="hidden lg:flex items-center gap-5">
             <a
               href="tel:+4979419596362"
-              className="text-[0.84rem] font-medium text-slate-400 hover:text-white transition-colors duration-200"
+              className="text-[0.84rem] font-medium text-slate-300 hover:text-white transition-colors duration-200"
             >
               07941 / 95 96 362
             </a>
@@ -105,7 +105,7 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-navy-light border-l border-white/[0.06] lg:hidden"
+              className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-navy-light border-l border-white/[0.1] lg:hidden"
             >
               <div className="flex flex-col h-full pt-20 pb-8 px-6">
                 <div className="flex-1 space-y-1">
@@ -120,8 +120,8 @@ export function Navbar() {
                     </a>
                   ))}
                 </div>
-                <div className="pt-6 border-t border-white/[0.06] space-y-3">
-                  <a href="tel:+4979419596362" className="flex items-center gap-2 px-3 py-2 text-sm text-slate-500">
+                <div className="pt-6 border-t border-white/[0.1] space-y-3">
+                  <a href="tel:+4979419596362" className="flex items-center gap-2 px-3 py-2 text-sm text-slate-400">
                     <Phone className="h-4 w-4" />
                     07941 / 95 96 362
                   </a>

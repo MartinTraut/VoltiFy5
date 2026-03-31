@@ -10,6 +10,7 @@ interface Testimonial {
   name: string
   role: string
   initials: string
+  service?: string
   rating?: number
 }
 
@@ -39,34 +40,38 @@ export function TestimonialsColumn({
             {testimonials.map((t, i) => (
               <div
                 key={`${loopIdx}-${i}`}
-                className="group relative p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] backdrop-blur-sm max-w-xs w-full transition-all duration-500 hover:border-brand/35 hover:bg-white/[0.04]"
+                className="relative p-5 rounded-2xl border border-white/[0.08] bg-navy-light max-w-xs w-full"
               >
-                {/* Quote mark */}
-                <div className="absolute top-4 right-5 text-4xl font-serif text-brand/10 leading-none select-none">&ldquo;</div>
-
-                {/* Stars */}
-                <div className="flex gap-0.5 mb-4">
+                {/* Sterne */}
+                <div className="flex gap-0.5 mb-3">
                   {Array.from({ length: t.rating ?? 5 }).map((_, s) => (
                     <Star key={s} className="h-3.5 w-3.5 fill-brand text-brand" />
                   ))}
                 </div>
 
-                <p className="text-[13px] text-slate-300 leading-relaxed">
-                  {t.text}
+                {/* Text */}
+                <p className="text-sm text-white/90 leading-relaxed">
+                  &ldquo;{t.text}&rdquo;
                 </p>
 
-                <div className="flex items-center gap-3 mt-5 pt-4 border-t border-white/[0.05]">
-                  <div className="h-9 w-9 rounded-full bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-[11px] font-bold text-white shrink-0 shadow-lg shadow-brand/30">
+                {/* Autor */}
+                <div className="flex items-center gap-3 mt-4 pt-4 border-t border-white/[0.08]">
+                  <div className="h-10 w-10 rounded-full bg-brand flex items-center justify-center text-xs font-bold text-navy shrink-0">
                     {t.initials}
                   </div>
-                  <div>
-                    <div className="text-sm font-semibold text-white leading-tight">
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-bold text-white leading-tight">
                       {t.name}
                     </div>
-                    <div className="text-[11px] text-slate-500 leading-tight">
+                    <div className="text-xs text-slate-400 leading-tight mt-0.5">
                       {t.role}
                     </div>
                   </div>
+                  {t.service && (
+                    <span className="text-[10px] font-bold text-brand uppercase tracking-wider bg-brand/15 border border-brand/30 rounded-full px-2.5 py-1 shrink-0">
+                      {t.service}
+                    </span>
+                  )}
                 </div>
               </div>
             ))}
