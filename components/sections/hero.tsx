@@ -78,37 +78,33 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease }}
           >
-            <LayoutGroup>
               <h1 className="text-[2.6rem] leading-[1.05] sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem] font-bold tracking-tight text-white sm:leading-[1.08]">
-                <motion.span
-                  className="block"
-                  layout
-                  transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                >
+                <span className="block">
                   Strom ist
-                </motion.span>
-                <motion.span className="block mt-2 sm:mt-3" layout>
-                  <TextRotate
-                    texts={[
-                      "Vertrauenssache.",
-                      "Meistersache.",
-                      "Zukunftssache.",
-                      "Chefsache.",
-                      "Präzisionssache.",
-                    ]}
-                    mainClassName="inline-flex text-brand overflow-hidden py-1.5 sm:py-3 px-2.5 sm:px-6 border-2 border-brand/60 rounded-lg sm:rounded-2xl"
-                    staggerFrom="last"
-                    initial={{ y: "100%" }}
-                    animate={{ y: 0 }}
-                    exit={{ y: "-120%" }}
-                    staggerDuration={0.02}
-                    splitLevelClassName="overflow-hidden"
-                    transition={{ type: "spring", damping: 30, stiffness: 350 }}
-                    rotationInterval={3000}
-                  />
-                </motion.span>
+                </span>
+                <LayoutGroup>
+                  <motion.span className="block mt-2 sm:mt-3" layout transition={{ type: "spring", damping: 30, stiffness: 400 }}>
+                    <TextRotate
+                      texts={[
+                        "Vertrauenssache.",
+                        "Meistersache.",
+                        "Zukunftssache.",
+                        "Chefsache.",
+                        "Präzisionssache.",
+                      ]}
+                      mainClassName="inline-flex text-brand overflow-hidden py-1.5 sm:py-3 px-2.5 sm:px-6 border-2 border-brand/60 rounded-lg sm:rounded-2xl"
+                      staggerFrom="last"
+                      initial={{ y: "100%" }}
+                      animate={{ y: 0 }}
+                      exit={{ y: "-120%" }}
+                      staggerDuration={0.02}
+                      splitLevelClassName="overflow-hidden"
+                      transition={{ type: "spring", damping: 30, stiffness: 350 }}
+                      rotationInterval={3000}
+                    />
+                  </motion.span>
+                </LayoutGroup>
               </h1>
-            </LayoutGroup>
           </motion.div>
 
           {/* Subtext - mehr Abstand zur Headline */}
@@ -139,7 +135,7 @@ export function Hero() {
             </a>
             <a
               href="#leistungen"
-              className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 sm:px-7 py-3.5 text-[15px] sm:text-sm font-medium text-white/70 transition-all duration-300 hover:border-white/30 hover:text-white"
+              className="inline-flex items-center justify-center rounded-full border-2 border-white/25 px-5 sm:px-7 py-3.5 text-[15px] sm:text-sm font-semibold text-white transition-all duration-300 hover:border-brand/50 hover:text-brand"
             >
               Leistungen
             </a>
